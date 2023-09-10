@@ -17,7 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Path("/s3/upload")
+@Path(S3UploadRouting.POST_ROUTE)
 @AllArgsConstructor
 @Slf4j
 public class PostUploadAction

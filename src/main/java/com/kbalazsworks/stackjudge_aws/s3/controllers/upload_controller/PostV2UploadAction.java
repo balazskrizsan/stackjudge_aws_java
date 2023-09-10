@@ -1,9 +1,5 @@
 package com.kbalazsworks.stackjudge_aws.s3.controllers.upload_controller;
 
-import com.kbalazsworks.simple_oidc.exceptions.OidcExpiredTokenException;
-import com.kbalazsworks.simple_oidc.exceptions.OidcJwksVerificationException;
-import com.kbalazsworks.simple_oidc.exceptions.OidcJwtParseException;
-import com.kbalazsworks.simple_oidc.exceptions.OidcScopeException;
 import com.kbalazsworks.stackjudge_aws.common.builders.ResponseEntityBuilder;
 import com.kbalazsworks.stackjudge_aws.common.entities.ApiResponseData;
 import com.kbalazsworks.stackjudge_aws.common.exceptions.ApiException;
@@ -19,13 +15,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jboss.resteasy.reactive.RestHeader;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-@Path("/v2/s3/upload")
+@Path(S3UploadRouting.POST_V2_ROUTE)
 @AllArgsConstructor
 @Slf4j
 public class PostV2UploadAction
@@ -35,21 +26,9 @@ public class PostV2UploadAction
     public final OidcServiceFactory   oidcServiceFactory;
 
     @POST
-    public ApiResponseData<PutAndSaveResponse> postSendAction(
-        @BeanParam
-        PostUploadRequest request,
-        @RestHeader("Authorization")
-        String token
-    ) throws
-        RecordNotFoundException,
-        ApiException,
-        OidcJwtParseException,
-        OidcExpiredTokenException,
-        OidcJwksVerificationException,
-        OidcScopeException
+    public ApiResponseData<PutAndSaveResponse> postSendAction(@BeanParam PostUploadRequest request)
+    throws RecordNotFoundException, ApiException
     {
-        oidcServiceFactory.getValidationService().checkScopesInToken(token, List.of("sj.aws"));
-
         Put mappedRequest = requestMapperService.map(request);
 
         log.info("API call: {}", mappedRequest);
