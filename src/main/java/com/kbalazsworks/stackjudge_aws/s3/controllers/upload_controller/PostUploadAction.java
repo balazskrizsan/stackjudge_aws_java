@@ -3,44 +3,47 @@ package com.kbalazsworks.stackjudge_aws.s3.controllers.upload_controller;
 import com.kbalazsworks.stackjudge_aws.common.builders.ResponseEntityBuilder;
 import com.kbalazsworks.stackjudge_aws.common.entities.ApiResponseData;
 import com.kbalazsworks.stackjudge_aws.common.exceptions.ApiException;
-import com.kbalazsworks.stackjudge_aws.common.exceptions.RecordNotFoundException;
 import com.kbalazsworks.stackjudge_aws.s3.requests.PostUploadRequest;
-import com.kbalazsworks.stackjudge_aws.s3.responses.PutAndSaveResponse;
 import com.kbalazsworks.stackjudge_aws.s3.services.CdnService;
 import com.kbalazsworks.stackjudge_aws.s3.services.RequestMapperService;
+import com.kbalazsworks.stackjudge_aws.s3.value_objects.CdnServicePutResponse;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.Put;
 import jakarta.ws.rs.BeanParam;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
-@Path("/v2/s3/upload")
+@Path("/s3/upload")
 @AllArgsConstructor
 @Slf4j
-public class PostV2UploadAction
+public class PostUploadAction
 {
     public final RequestMapperService requestMapperService;
     public final CdnService           cdnService;
 
     @POST
-    public ApiResponseData<PutAndSaveResponse> postSendAction(
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ApiResponseData<CdnServicePutResponse> postSendAction(
         @BeanParam
         PostUploadRequest request
 //        @RestHeader("Authorization")
 //        String token
-    ) throws RecordNotFoundException, ApiException
+    ) throws ApiException
     {
         Put mappedRequest = requestMapperService.map(request);
 
         log.info("API call: {}", mappedRequest);
 
-        PutAndSaveResponse awsResponse = cdnService.putAndSave(mappedRequest);
+        CdnServicePutResponse awsResponse = cdnService.put(mappedRequest);
 
         log.info("AWS response: {}", awsResponse);
 
-        return new ResponseEntityBuilder<PutAndSaveResponse>()
+        return new ResponseEntityBuilder<CdnServicePutResponse>()
             .data(awsResponse)
             .build();
     }
