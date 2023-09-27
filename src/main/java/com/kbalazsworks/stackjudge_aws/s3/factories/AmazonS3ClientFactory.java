@@ -7,13 +7,13 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.kbalazsworks.stackjudge_aws.common.services.ApplicationPropertiesService;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import lombok.AllArgsConstructor;
 
 @ApplicationScoped
+@AllArgsConstructor
 public class AmazonS3ClientFactory
 {
-    @Inject
-    ApplicationPropertiesService applicationPropertiesService;
+    private final ApplicationPropertiesService applicationPropertiesService;
 
     public AmazonS3 create()
     {

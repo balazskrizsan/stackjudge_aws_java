@@ -8,21 +8,19 @@ import com.kbalazsworks.stackjudge_aws.s3.services.CdnService;
 import com.kbalazsworks.stackjudge_aws.s3.services.RequestMapperService;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.CdnServicePutResponse;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.Put;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
+import lombok.AllArgsConstructor;
 
 @Path("/v2/s3/upload")
+@AllArgsConstructor
 public class PostV2UploadAction
 {
-    @Inject
-    RequestMapperService requestMapperService;
-
-    @Inject
-    CdnService cdnService;
+    public final RequestMapperService requestMapperService;
+    public final CdnService           cdnService;
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)

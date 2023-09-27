@@ -6,29 +6,22 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.kbalazsworks.stackjudge_aws.common.factories.LocalDateTimeFactory;
 import com.kbalazsworks.stackjudge_aws.common.services.ApplicationPropertiesService;
 import com.kbalazsworks.stackjudge_aws.common.services.DateTimeFormatterService;
-import com.kbalazsworks.stackjudge_aws.s3.enums.CdnNamespaceEnum;
 import com.kbalazsworks.stackjudge_aws.s3.repositories.S3Repository;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.CdnServicePutResponse;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.Put;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import lombok.AllArgsConstructor;
 
 import java.io.File;
 
 @ApplicationScoped
+@AllArgsConstructor
 public class CdnService
 {
-    @Inject
-    DateTimeFormatterService dateTimeFormatterService;
-
-    @Inject
-    LocalDateTimeFactory localDateTimeFactory;
-
-    @Inject
-    S3Repository s3Repository;
-
-    @Inject
-    ApplicationPropertiesService applicationPropertiesService;
+    private final DateTimeFormatterService     dateTimeFormatterService;
+    private final LocalDateTimeFactory         localDateTimeFactory;
+    private final S3Repository                 s3Repository;
+    private final ApplicationPropertiesService applicationPropertiesService;
 
     public CdnServicePutResponse put(Put put)
     {
