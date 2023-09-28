@@ -27,6 +27,12 @@ dependencies {
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.559'
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
+    // https://mvnrepository.com/artifact/org.jooq/jooq
+    implementation "org.jooq:jooq:3.17.7"
+    // Flyway specific dependencies
+    implementation "io.quarkus:quarkus-flyway"
+    // JDBC driver dependencies
+    implementation "io.quarkus:quarkus-jdbc-postgresql"
 }
 
 group 'com.kbalazsworks'
