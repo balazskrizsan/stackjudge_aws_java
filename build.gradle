@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id "io.freefair.lombok" version "8.3"
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+//    custom
+    implementation "io.github.balazskrizsan:simple-oidc-simple_oidc_java_maven:2.0.4"
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-resteasy-reactive-jackson
+    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson:3.4.1'
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    implementation 'org.projectlombok:lombok:1.18.30'//?
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation 'commons-io:commons-io:2.13.0'
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.559'
+}
+
+group 'com.kbalazsworks'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
