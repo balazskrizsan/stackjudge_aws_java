@@ -7,6 +7,7 @@ package com.kbalazsworks.stackjudge_aws.db.tables;
 import com.kbalazsworks.stackjudge_aws.db.Public;
 import com.kbalazsworks.stackjudge_aws.db.tables.records.RemoteFilesRecord;
 
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.jooq.Field;
@@ -50,7 +51,7 @@ public class RemoteFiles extends TableImpl<RemoteFilesRecord> {
     /**
      * The column <code>public.remote_files.id</code>.
      */
-    public final TableField<RemoteFilesRecord, String> ID = createField(DSL.name("id"), SQLDataType.CHAR(36), this, "");
+    public final TableField<RemoteFilesRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.defaultValue(DSL.field("gen_random_uuid()", SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.remote_files.path</code>.
@@ -154,14 +155,14 @@ public class RemoteFiles extends TableImpl<RemoteFilesRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, String, String, String> fieldsRow() {
+    public Row5<UUID, String, String, String, String> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function5<? super UUID, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -169,7 +170,7 @@ public class RemoteFiles extends TableImpl<RemoteFilesRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super UUID, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }
