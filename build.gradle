@@ -33,6 +33,8 @@ dependencies {
     implementation "io.quarkus:quarkus-flyway"
     // JDBC driver dependencies
     implementation "io.quarkus:quarkus-jdbc-postgresql"
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-smallrye-openapi
+    implementation 'io.quarkus:quarkus-smallrye-openapi:3.4.2'
 }
 
 group 'com.kbalazsworks'

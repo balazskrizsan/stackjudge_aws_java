@@ -3,7 +3,7 @@ package com.kbalazsworks.stackjudge_aws.common.filters;
 import com.kbalazsworks.simple_oidc.exceptions.OidcException;
 import com.kbalazsworks.stackjudge_aws.common.value_objects.RouteElement;
 import com.kbalazsworks.stackjudge_aws.oidc.OidcServiceFactory;
-import com.kbalazsworks.stackjudge_aws.s3.controllers.RouteValidatorMapper;
+import com.kbalazsworks.stackjudge_aws.common.RouteValidatorMapper;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,8 @@ public class Filters
 
         RouteElement currentRouteElement = RouteValidatorMapper.routeElements
             .stream()
-            .filter(item -> item.route().equals(uri))
+            .filter(RouteElement::requireAuth)
+            .filter(item -> item.route().equals(uri)) //@todo: check method too
             .findAny()
             .orElse(null);
 
