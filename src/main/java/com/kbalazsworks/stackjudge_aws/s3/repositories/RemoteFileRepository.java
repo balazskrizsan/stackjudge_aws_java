@@ -6,6 +6,8 @@ import com.kbalazsworks.stackjudge_aws.s3.entities.RemoteFile;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.NonNull;
 
+import java.util.List;
+
 @ApplicationScoped
 public class RemoteFileRepository extends AbstractRepository
 {
@@ -32,5 +34,13 @@ public class RemoteFileRepository extends AbstractRepository
                 .returningResult()
                 .fetchOneInto(RemoteFile.class)
         );
+    }
+
+    public List<RemoteFile> getRemoteFiles(List<String> ids)
+    {
+        return getQueryBuilder()
+            .selectFrom(remoteFilesTable)
+            .where(remoteFilesTable.ID.in(ids))
+            .fetchInto(RemoteFile.class);
     }
 }

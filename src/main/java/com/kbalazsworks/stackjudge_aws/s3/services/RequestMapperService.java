@@ -1,8 +1,10 @@
 package com.kbalazsworks.stackjudge_aws.s3.services;
 
 import com.kbalazsworks.stackjudge_aws.s3.enums.CdnNamespaceEnum;
+import com.kbalazsworks.stackjudge_aws.s3.requests.GetUploadRequest;
 import com.kbalazsworks.stackjudge_aws.s3.requests.PostUploadRequest;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.Put;
+import com.kbalazsworks.stackjudge_aws.s3.value_objects.UploadIds;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
@@ -32,5 +34,10 @@ public class RequestMapperService
         }
 
         throw new Exception();
+    }
+
+    public UploadIds map(GetUploadRequest request)
+    {
+        return new UploadIds(request.getIds());
     }
 }
