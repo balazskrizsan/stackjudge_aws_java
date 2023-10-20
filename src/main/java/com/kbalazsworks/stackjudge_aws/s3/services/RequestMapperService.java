@@ -4,14 +4,9 @@ import com.kbalazsworks.stackjudge_aws.s3.enums.CdnNamespaceEnum;
 import com.kbalazsworks.stackjudge_aws.s3.requests.GetUploadRequest;
 import com.kbalazsworks.stackjudge_aws.s3.requests.PostUploadRequest;
 import com.kbalazsworks.stackjudge_aws.s3.value_objects.Put;
-import com.kbalazsworks.stackjudge_aws.s3.value_objects.UploadIds;
+import com.kbalazsworks.stackjudge_aws.s3.value_objects.UploadRequest;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.SneakyThrows;
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @ApplicationScoped
 public class RequestMapperService
@@ -36,8 +31,8 @@ public class RequestMapperService
         throw new Exception();
     }
 
-    public UploadIds map(GetUploadRequest request)
+    public UploadRequest map(GetUploadRequest request)
     {
-        return new UploadIds(request.getIds());
+        return new UploadRequest(request.getIds());
     }
 }

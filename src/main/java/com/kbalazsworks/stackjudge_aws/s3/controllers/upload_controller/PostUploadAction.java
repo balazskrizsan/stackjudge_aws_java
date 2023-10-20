@@ -16,6 +16,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 @Path(S3UploadRouting.POST_ROUTE)
 @AllArgsConstructor
@@ -28,12 +31,13 @@ public class PostUploadAction
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public ApiResponseData<CdnServicePutResponse> postSendAction(
-        @BeanParam
-        PostUploadRequest request
-//        @RestHeader("Authorization")
-//        String token
-    ) throws ApiException
+    @RequestBody(
+        content = @Content(
+            schema = @Schema(implementation = PostUploadRequest.class)
+        )
+    )
+    public ApiResponseData<CdnServicePutResponse> postSendAction(@BeanParam PostUploadRequest request)
+    throws ApiException
     {
         Put mappedRequest = requestMapperService.map(request);
 

@@ -7,7 +7,7 @@ import com.kbalazsworks.stackjudge_aws.s3.entities.RemoteFile;
 import com.kbalazsworks.stackjudge_aws.s3.requests.GetUploadRequest;
 import com.kbalazsworks.stackjudge_aws.s3.services.RemoteFileService;
 import com.kbalazsworks.stackjudge_aws.s3.services.RequestMapperService;
-import com.kbalazsworks.stackjudge_aws.s3.value_objects.UploadIds;
+import com.kbalazsworks.stackjudge_aws.s3.value_objects.UploadRequest;
 import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -36,7 +36,7 @@ public class GetUploadAction
     )
     throws ApiException
     {
-        UploadIds mappedRequest = requestMapperService.map(request);
+        UploadRequest mappedRequest = requestMapperService.map(request);
 
         log.info("API call: {}", mappedRequest);
 
